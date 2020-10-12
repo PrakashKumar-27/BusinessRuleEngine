@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessRuleEngine
 {
-    public enum PaymentFor { Shipping, RoyaltyDepartment, ActivateMembership, UpgrageMembership };
+    public enum PaymentFor { Shipping, RoyaltyDepartment, ActivateMembership, UpgrageMembership, Video };
     public class PackingSlip
     {
         public int PaymentSlipId { get; set; }
