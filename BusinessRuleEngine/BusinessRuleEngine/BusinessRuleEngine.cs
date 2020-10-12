@@ -95,4 +95,18 @@ namespace BusinessRuleEngine
             return packingSlip;
         }
     }
+
+    public class UpgradeMembershipPayment : Payment
+    {
+        public UpgradeMembershipPayment(CustomerPayment customerPayment)
+        : base(customerPayment)
+        {
+        }
+        public override PackingSlip ProcessPayment()
+        {
+            PackingSlip packingSlip = base.GetPackingSlip(PaymentFor.UpgrageMembership);
+            packingSlip.EmailSentFor = base.SendEmail(2);
+            return packingSlip;
+        }
+    }
 }
