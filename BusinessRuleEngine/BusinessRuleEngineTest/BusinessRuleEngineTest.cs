@@ -21,12 +21,23 @@ namespace BusinessRuleEngineTest
         [TestMethod]
         public void ProductPaymentTest()
         {
-            PackingSlip packingSlip = new PackingSlip() { CustomerId = 1, PaymentSlipId = 1, Amount = 10000, AgentCommisionAmount = 200, EmailSentFor = "Activation Membership Email", FreeAidVideo = false, paymentFor = PaymentFor.RoyaltyDepartment };
+            PackingSlip packingSlip = new PackingSlip() { CustomerId = 1, PaymentSlipId = 1, Amount = 10000, AgentCommisionAmount = 200, paymentFor = PaymentFor.RoyaltyDepartment };
             CustomerPayment customerPayment = new CustomerPayment() { CustomerId = 1, Amount = 10000 };
-            Payment bookPayment = new BookPayment(customerPayment);
+            Payment bookPayment = new ProductPayment(customerPayment);
             var result = bookPayment.ProcessPayment();
             Assert.AreEqual(packingSlip.paymentFor, result.paymentFor);
             Assert.AreEqual(packingSlip.AgentCommisionAmount, result.AgentCommisionAmount);
+        }
+
+        [TestMethod]
+        public void ActivateMembershipPaymentTest()
+        {
+            PackingSlip packingSlip = new PackingSlip() { CustomerId = 1, PaymentSlipId = 1, Amount = 10000, EmailSentFor = "Activation Membership Email", FreeAidVideo = false, paymentFor = PaymentFor.ActivateMembership };
+            CustomerPayment customerPayment = new CustomerPayment() { CustomerId = 1, Amount = 10000 };
+            Payment bookPayment = new MembershipPayment(customerPayment);
+            var result = bookPayment.ProcessPayment();
+            Assert.AreEqual(packingSlip.paymentFor, result.paymentFor);
+            Assert.AreEqual(packingSlip.EmailSentFor, result.EmailSentFor);
         }
     }
 }

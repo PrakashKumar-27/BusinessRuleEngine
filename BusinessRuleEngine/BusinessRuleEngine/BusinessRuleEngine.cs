@@ -80,5 +80,5 @@ namespace BusinessRuleEngine
             packingSlip.AgentCommisionAmount = base.GetAgentCommisionAmount();
             return packingSlip;
         }
-    }
+    }   
 }
