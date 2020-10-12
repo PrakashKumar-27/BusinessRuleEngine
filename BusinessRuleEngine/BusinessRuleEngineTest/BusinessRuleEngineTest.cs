@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using BusinessRuleEngine;
 
 namespace BusinessRuleEngineTest
 {
@@ -7,8 +8,11 @@ namespace BusinessRuleEngineTest
     public class BusinessRuleEngineTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void BookPaymentTest()
         {
+            CustomerPayment customerPayment = new CustomerPayment();
+            Payment bookPayment = new BookPayment(customerPayment);
+            bookPayment.ProcessPayment();
         }
     }
 }
