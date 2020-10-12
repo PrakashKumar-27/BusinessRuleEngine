@@ -80,5 +80,19 @@ namespace BusinessRuleEngine
             packingSlip.AgentCommisionAmount = base.GetAgentCommisionAmount();
             return packingSlip;
         }
-    }   
+    }
+
+    public class MembershipPayment : Payment
+    {
+        public MembershipPayment(CustomerPayment customerPayment)
+        : base(customerPayment)
+        {
+        }
+        public override PackingSlip ProcessPayment()
+        {
+            PackingSlip packingSlip = base.GetPackingSlip(PaymentFor.ActivateMembership);
+            packingSlip.EmailSentFor = base.SendEmail(1);
+            return packingSlip;
+        }
+    }
 }
