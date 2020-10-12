@@ -6,11 +6,16 @@ using System.Threading.Tasks;
 
 namespace BusinessRuleEngine
 {
+    public enum PaymentFor { Shipping, RoyaltyDepartment, ActivateMembership, UpgrageMembership };
     public class PackingSlip
     {
         public int PaymentSlipId { get; set; }
         public int CustomerId { get; set; }
         public double Amount { get; set; }
+        public double AgentCommisionAmount { get; set; }
+        public string EmailSentFor { get; set; }
+        public PaymentFor paymentFor { get; set; }
+        public bool FreeAidVideo { get; set; } = false;
     }
 
     public class CustomerPayment
@@ -26,7 +31,26 @@ namespace BusinessRuleEngine
             CustomerPayment = customerPayment;
         }
 
-        public abstract void ProcessPayment();
+        public PackingSlip GetPackingSlip(PaymentFor paymentFor)
+        {
+            PackingSlip packingSlip = new PackingSlip();
+            packingSlip.PaymentSlipId = 1;
+            packingSlip.Amount = CustomerPayment.Amount;
+            packingSlip.CustomerId = CustomerPayment.CustomerId;
+            packingSlip.paymentFor = paymentFor;
+            return packingSlip;
+        }
+
+        public string SendEmail(int emailFor =1)
+        {
+            return emailFor == 1 ? "Activation Membership Email" : "Upgrage Membership Email";
+        }
+
+        public double GetAgentCommisionAmount()
+        {
+            return CustomerPayment.Amount * 2 / 100;
+        }
+        public abstract PackingSlip ProcessPayment();
     }
 
     public class BookPayment : Payment
@@ -35,24 +59,9 @@ namespace BusinessRuleEngine
         : base(customerPayment)
         {
         }
-        public override void ProcessPayment()
+        public override PackingSlip ProcessPayment()
         {
-            PackingSlip packingSlip = new PackingSlip();
-            packingSlip.Amount = CustomerPayment.Amount;
-            packingSlip.CustomerId = CustomerPayment.CustomerId;
-
-            //packingSlip
-        }
-    }
-
-    public class ProductPayment : Payment
-    {
-        public ProductPayment(CustomerPayment customerPayment)
-        : base(customerPayment)
-        {
-        }
-        public override void ProcessPayment()
-        {
+            
         }
     }
 }

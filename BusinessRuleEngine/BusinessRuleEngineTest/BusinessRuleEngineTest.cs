@@ -10,9 +10,12 @@ namespace BusinessRuleEngineTest
         [TestMethod]
         public void BookPaymentTest()
         {
-            CustomerPayment customerPayment = new CustomerPayment();
+            PackingSlip packingSlip = new PackingSlip() { CustomerId = 1, PaymentSlipId = 1, Amount = 10000, AgentCommisionAmount=200, EmailSentFor= "Activation Membership Email", FreeAidVideo=false, paymentFor = PaymentFor.Shipping };
+            CustomerPayment customerPayment = new CustomerPayment() { CustomerId = 1 , Amount = 10000 };
             Payment bookPayment = new BookPayment(customerPayment);
-            bookPayment.ProcessPayment();
+            var result =  bookPayment.ProcessPayment();
+            Assert.AreEqual(packingSlip.paymentFor, PaymentFor.Shipping);
+            Assert.AreEqual(packingSlip.AgentCommisionAmount, result.AgentCommisionAmount);
         }
     }
 }
