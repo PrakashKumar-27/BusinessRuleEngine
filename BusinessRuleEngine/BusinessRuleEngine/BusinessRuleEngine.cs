@@ -109,4 +109,18 @@ namespace BusinessRuleEngine
             return packingSlip;
         }
     }
+
+    public class VideoPayment : Payment
+    {
+        public VideoPayment(CustomerPayment customerPayment)
+        : base(customerPayment)
+        {
+        }
+        public override PackingSlip ProcessPayment()
+        {
+            PackingSlip packingSlip = base.GetPackingSlip(PaymentFor.UpgrageMembership);
+            packingSlip.FreeAidVideo = true;
+            return packingSlip;
+        }
+    }
 }
