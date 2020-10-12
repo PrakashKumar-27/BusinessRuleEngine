@@ -61,7 +61,9 @@ namespace BusinessRuleEngine
         }
         public override PackingSlip ProcessPayment()
         {
-            
+            PackingSlip packingSlip=  base.GetPackingSlip(PaymentFor.Shipping);
+            packingSlip.AgentCommisionAmount = base.GetAgentCommisionAmount();
+            return packingSlip;
         }
     }
 }
