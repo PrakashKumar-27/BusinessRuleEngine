@@ -118,7 +118,7 @@ namespace BusinessRuleEngine
         }
         public override PackingSlip ProcessPayment()
         {
-            PackingSlip packingSlip = base.GetPackingSlip(PaymentFor.UpgrageMembership);
+            PackingSlip packingSlip = base.GetPackingSlip(PaymentFor.Video);
             packingSlip.FreeAidVideo = true;
             return packingSlip;
         }
