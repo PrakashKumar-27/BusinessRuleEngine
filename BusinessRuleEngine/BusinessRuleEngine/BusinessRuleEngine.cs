@@ -66,4 +66,19 @@ namespace BusinessRuleEngine
             return packingSlip;
         }
     }
+
+    public class ProductPayment : Payment
+    {
+        public ProductPayment(CustomerPayment customerPayment)
+        : base(customerPayment)
+        {
+        }
+        public override PackingSlip ProcessPayment()
+        {
+            PackingSlip packingSlip = base.GetPackingSlip(PaymentFor.RoyaltyDepartment);
+            packingSlip.PaymentSlipId = 00000; //Generating duplicate Id
+            packingSlip.AgentCommisionAmount = base.GetAgentCommisionAmount();
+            return packingSlip;
+        }
+    }
 }
